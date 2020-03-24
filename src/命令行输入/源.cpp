@@ -355,11 +355,18 @@ void solve() {
 				c2 = 'R';
 			else if (lines[j].type == 2)
 				c2 = 'S';
-			d = solve_ll(lines[i].x1, lines[i].y1, lines[i].x2, lines[i].y2, c1, 
+			try
+			{
+				d = solve_ll(lines[i].x1, lines[i].y1, lines[i].x2, lines[i].y2, c1, 
 				lines[j].x1, lines[j].y1, lines[j].x2, lines[j].y2, c2);
-			if ((int)d[0] == 1) {
-				dot _d = dot(d[1], d[2]);
-				_d.dotinsert();
+				if ((int)d[0] == 1) {
+					dot _d = dot(d[1], d[2]);
+					_d.dotinsert();
+				}
+			}
+			catch (const char* msg)
+			{
+				cerr << msg << endl;
 			}
 		}
 	}
@@ -367,22 +374,29 @@ void solve() {
 		cycle c = cycles[i];
 		for (int j = i + 1; j < cycles.size(); j++) {
 			double* d;
-			d = solve_cc(cycles[i].x, cycles[i].y, cycles[i].r, 'C', cycles[j].x,
-				cycles[j].y, cycles[j].r, 'C');
-			double d0 = d[0];
-			double d1 = d[1];
-			double d2 = d[2];
-			double d3 = d[3];
-			double d4 = d[4];
-			if ((int)d0 == 1) {
-				dot _d = dot(d1, d2);
-				_d.dotinsert();
+			try
+			{
+				d = solve_cc(cycles[i].x, cycles[i].y, cycles[i].r, 'C', cycles[j].x,
+					cycles[j].y, cycles[j].r, 'C');
+				double d0 = d[0];
+				double d1 = d[1];
+				double d2 = d[2];
+				double d3 = d[3];
+				double d4 = d[4];
+				if ((int)d0 == 1) {
+					dot _d = dot(d1, d2);
+					_d.dotinsert();
+				}
+				else if ((int)d0 == 2) {
+					dot _d = dot(d1, d2);
+					_d.dotinsert();
+					dot __d = dot(d3, d4);
+					__d.dotinsert();
+				}
 			}
-			else if ((int)d0 == 2) {
-				dot _d = dot(d1, d2);
-				_d.dotinsert();
-				dot __d = dot(d3, d4);
-				__d.dotinsert();
+			catch (const char* msg)
+			{
+				cerr << msg << endl;
 			}
 		}
 		for (int j = 0; j < lines.size(); j++) {
@@ -394,22 +408,29 @@ void solve() {
 				c = 'R';
 			else if (lines[j].type == 2)
 				c = 'S';
-			d = solve_lc(lines[j].x1, lines[j].y1, lines[j].x2, lines[j].y2, c,
-			cycles[i].x, cycles[i].y, cycles[i].r, 'C');
-			double d0 = d[0];
-			double d1 = d[1];
-			double d2 = d[2];
-			double d3 = d[3];
-			double d4 = d[4];
-			if ((int)d0 == 1) {
-				dot _d = dot(d1, d2);
-				_d.dotinsert();
-			} 
-			else if ((int)d0 == 2) {
-				dot _d = dot(d1, d2);
-				_d.dotinsert();
-				dot __d = dot(d3, d4);
-				__d.dotinsert();
+			try
+			{
+				d = solve_lc(lines[j].x1, lines[j].y1, lines[j].x2, lines[j].y2, c,
+					cycles[i].x, cycles[i].y, cycles[i].r, 'C');
+				double d0 = d[0];
+				double d1 = d[1];
+				double d2 = d[2];
+				double d3 = d[3];
+				double d4 = d[4];
+				if ((int)d0 == 1) {
+					dot _d = dot(d1, d2);
+					_d.dotinsert();
+				}
+				else if ((int)d0 == 2) {
+					dot _d = dot(d1, d2);
+					_d.dotinsert();
+					dot __d = dot(d3, d4);
+					__d.dotinsert();
+				}
+			}
+			catch (const char* msg)
+			{
+				cerr << msg << endl;
 			}
 		}
 	}
